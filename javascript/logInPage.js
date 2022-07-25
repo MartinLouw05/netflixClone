@@ -67,20 +67,22 @@ registerUserSubmitBtn.addEventListener('click', (e) => {
 
         let jsonArray = JSON.stringify(newUserArray);
         let myJson = JSON.parse(jsonArray);
+        let jsonData = JSON.stringify(myJson);
 
         if (users == null) {
             console.log("No Registered Users Found");
 
-            let jsonData = JSON.stringify(myJson);
-
             localStorage.setItem("users", jsonData);
             alert("New User Successfully Registered.  Please Attempt to Sign In.");
 
+            e.preventDefault();
             hideRegisterBtn();
         }
         else if (users !== null) {
             console.log("Registered Users Found");
-    
+
+            e.preventDefault();
+            registerUser(users, myJson);    
         }
         else {
             console.log("Something Went Wrong While Attempting To Retrieve Registered Users");
@@ -92,8 +94,24 @@ registerUserSubmitBtn.addEventListener('click', (e) => {
 
 })
 
-function registerUser() {
+function registerUser(users, data) {
+    console.log("Register User Function")
+    let usersArray = JSON.parse(users);
+    let usersLength = usersArray.length;
     
+    for (i = 0; i < usersLength; i++) {
+        if (usersArray[i].userName == data[0].userName) {
+            alert("Username Already Exists.  Please Choose a Different Username.");
+        }
+        else {
+            let newUsersArray = usersArray.concat(data);
+            let newUsersData = JSON.stringify(newUsersArray);
+            localStorage.setItem("users", newUsersData);
+
+            alert("New User Successfully Registered.  Please Attempt to Sign In.");
+            hideRegisterBtn();
+        }
+    }
 }
 
 //Display Register Button
@@ -122,7 +140,6 @@ function hideRegisterBtn() {
 
 //Change Display Property
 function changeDisplay(tab, display) {
-    console.log("Change Display");
     let i;
     let tabLength = tab.length;
 
