@@ -1,0 +1,53 @@
+
+body {
+    background-image: url("https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/netflixteaser.png");
+}
+
+.netflixLogo {
+    width: 20%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+form {
+    background-color: rgba(0,0,0,0.6);
+    margin-left: 33.3%;
+    margin-right: 33.3%;
+    margin-top: 7.5%;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+form h3 {
+    color: white;
+}
+
+form button {
+    color: white;
+    background-color: red;
+    height: 40px;
+    border: none;
+    border-radius: 4px;
+}
+
+.btnSignInSubmit {
+    display: block;
+    width: 100%;
+}
+
+.btnRegisterSubmit {
+    display: none;
+    width: 100%;
+}
+
+form label {
+    color: white;
+    font-style: italic;
+    text-decoration: underline;
+    font-size: small;
+    margin-left: 1%;
+}
+
+.lblRegisterUser {
+    display: block;
+}
