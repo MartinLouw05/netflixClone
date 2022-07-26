@@ -7,6 +7,9 @@ let signInSubmitBtnClass = document.getElementsByClassName("btnSignInSubmit");
 let registerUserLabel = document.getElementById("lblRegisterUser");
 let registerUserLabelClass = document.getElementsByClassName("lblRegisterUser");
 
+let signInLabel = document.getElementById("lblSignIn");
+let signInLabelClass = document.getElementsByClassName("lblSignIn");
+
 let registerUserSubmitBtn = document.getElementById("btnRegisterSubmit");
 let registerUserSubmitBtnClass = document.getElementsByClassName("btnRegisterSubmit");
 
@@ -21,33 +24,59 @@ window.onload = function() {
 
 //Sign In
 signInSubmitBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-
     let users = localStorage.getItem("users");
 
     if (users == null) {
-        console.log("No Registered Users Found");
+        console.log("No Registered Users Found");       
         alert("Username or Password Incorrect.  Please Try Again.");
     }
     else if (users !== null) {
         console.log("Registered Users Found");
 
-        signIn(users);
+        e.preventDefault();
+        signIn(users);        
     }
     else {
         console.log("Something Went Wrong While Attempting To Retrieve Registered Users");
     }
 })
 
-function signIn(data) {
+function signIn(users) {
     console.log("Attempting To Sign In User");
 
-    let userName = userNameInput.value;
-    let userPassword = userPasswordInput.value;
+    let signInUserName = userNameInput.value;
+    let signInUserPassword = userPasswordInput.value;
 
-    let jsonUsers = JSON.parse(data);
-    let usersLength = jsonUsers.length;    
+    let signInObj = { userName : signInUserName, userPassword : signInUserPassword };
+    let signInObjString = JSON.stringify(signInObj);
+  
+    let usersArray = JSON.parse(users);
+    let usersLength = usersArray.length;
+    
+    for (i = 0; i < usersLength; i++) {
+        let registeredUserName = usersArray[i].userName;
+        let registeredUserPassword = usersArray[i].userPassword;
 
+        let registeredObj = { userName : registeredUserName, userPassword : registeredUserPassword };
+        let registeredObjString = JSON.stringify(registeredObj);
+
+        if (signInObjString == registeredObjString) {
+            console.log("Matching User Information Found");
+
+            let successObj = JSON.parse(registeredObjString);
+
+            signInSuccess(successObj);
+        }
+        else {
+            alert("Username or Password Incorrect.  Please Try Again.");
+        }
+    }
+}
+
+function signInSuccess(user) {
+    let signedInUser = user.userName;
+    localStorage.setItem("currentUser", signedInUser);
+    document.location.href= "../html/homePage.html";
 }
 
 //Register User
@@ -88,10 +117,9 @@ registerUserSubmitBtn.addEventListener('click', (e) => {
             console.log("Something Went Wrong While Attempting To Retrieve Registered Users");
         }
     }
-    else {
-        alert("Please Ensure That All Fields Have Been Filled");
+    else {        
+        alert("Please Ensure That All Fields Have Been Filled");        
     }
-
 })
 
 function registerUser(users, data) {
@@ -116,23 +144,26 @@ function registerUser(users, data) {
 
 //Display Register Button
 registerUserLabel.addEventListener('click', (e) => {
-    console.log("Register New User Label Clicked");
-
     changeDisplay(signInSubmitBtnClass, 'none');
     changeDisplay(registerUserSubmitBtnClass, 'block');
     changeDisplay(registerUserLabelClass, 'none');
+    changeDisplay(signInLabelClass, 'block');
     
     userNameInput.value = '';
     userPasswordInput.value = '';
 })
 
+//Return To Sign In
+signInLabel.addEventListener('click', (e) => {
+    hideRegisterBtn();
+})
+
 //Hide Register Button
 function hideRegisterBtn() {
-    console.log("Hiding Register Button");
-
     changeDisplay(signInSubmitBtnClass, 'block');
     changeDisplay(registerUserSubmitBtnClass, 'none');
     changeDisplay(registerUserLabelClass, 'block');
+    changeDisplay(signInLabelClass, 'none');
     
     userNameInput.value = '';
     userPasswordInput.value = '';
