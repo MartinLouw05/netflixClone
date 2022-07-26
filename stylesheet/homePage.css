@@ -7,6 +7,42 @@ body {
     width: 20%;
     padding-top: 20px;
     padding-bottom: 20px;
+    margin-right: 25px;
+}
+
+.navButton {
+    background-color: transparent;
+    color: white;
+    margin-right: 2px;
+    border: none;
+}
+
+.row {
+    color: white;
+}
+
+.carousel {
+    text-align: center;
+}
+
+.carousel-inner img {
+    cursor: pointer;
+    height: 175px;
+    margin: 10px;
+}
+
+.carousel-control-next {
+    margin-right: -75px;
+}
+
+.carousel-control-prev {
+    margin-left: -75px;
+}
+
+.movieList {
+    color: white;
+    border: none;
+    width: 99%;
 }
 
 @media only screen and (max-width: 600px) {
