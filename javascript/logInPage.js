@@ -60,6 +60,7 @@ function signIn(users) {
 
     let signInArray = [];
     let registeredObjString;
+    let successObj;
     
     //Cycle Through Registered Users For A Matching Entry
     for (i = 0; i < usersLength; i++) {
@@ -71,6 +72,7 @@ function signIn(users) {
 
         if (signInObjString == registeredObjString) {
             console.log("Matching Entry Found");
+            successObj = JSON.parse(registeredObjString);
             signInArray.push(true);
         }
         else {
@@ -81,7 +83,7 @@ function signIn(users) {
 
     //Check If There Was A Matching Entry
     if (signInArray.includes(true)) {
-        let successObj = JSON.parse(registeredObjString);
+        
         signInSuccess(successObj);
     }
     else {
@@ -142,20 +144,28 @@ function registerUser(users, data) {
     console.log("Register User Function")
     let usersArray = JSON.parse(users);
     let usersLength = usersArray.length;
+    let duplicateArray = [];
     
     for (i = 0; i < usersLength; i++) {
         if (usersArray[i].userName == data[0].userName) {
-            alert("Username Already Exists.  Please Choose a Different Username.");
+            duplicateArray.push(true);            
         }
         else {
-            let newUsersArray = usersArray.concat(data);
-            let newUsersData = JSON.stringify(newUsersArray);
-            localStorage.setItem("users", newUsersData);
-
-            alert("New User Successfully Registered.  Please Attempt to Sign In.");
-            hideRegisterBtn();
+            duplicateArray.push(false);
         }
     }
+
+    if (duplicateArray.includes(true)) {
+        alert("Username Already Exists.  Please Choose a Different Username.");
+    }
+    else {
+        let newUsersArray = usersArray.concat(data);
+        let newUsersData = JSON.stringify(newUsersArray);
+        localStorage.setItem("users", newUsersData);
+
+        alert("New User Successfully Registered.  Please Attempt to Sign In.");
+        hideRegisterBtn();
+    }    
 }
 
 //Display Register Button
