@@ -21,13 +21,13 @@
                 <div class="col-lg-8">
                     <img v-bind:src="logo" alt="Netflix Logo Not Found" class="netflixLogo">
                     <button class="navButton">Home</button>
-                    <button class="navButton">Watchlist</button>
+                    <button v-on:click="moveToWatchlist()" class="navButton">Watchlist</button>
                 </div>
                 <div class="col-lg-2">
-                    &#128526 {{ name }}
+                    &#128526 {{ currentUser }}
                 </div>
                 <div class="col-lg-2">
-                    <button class="navButton">Log Out</button>
+                    <button v-on:click="userLogOut()" class="navButton">Log Out</button>
                 </div>
             </div>
         </header>

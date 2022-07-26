@@ -1,5 +1,8 @@
 console.log("Log In Page");
 
+//Remove Signed In User When User Uses Back Button
+localStorage.removeItem("currentUser");
+
 //Control Variables
 let signInSubmitBtn = document.getElementById("btnSignInSubmit");
 let signInSubmitBtnClass = document.getElementsByClassName("btnSignInSubmit");
@@ -15,6 +18,8 @@ let registerUserSubmitBtnClass = document.getElementsByClassName("btnRegisterSub
 
 let userNameInput = document.getElementById("userName");
 let userPasswordInput = document.getElementById("userPassword");
+
+let formHeader = document.getElementById("formHeader");
 
 //On Start Up
 window.onload = function() {
@@ -52,24 +57,35 @@ function signIn(users) {
   
     let usersArray = JSON.parse(users);
     let usersLength = usersArray.length;
+
+    let signInArray = [];
+    let registeredObjString;
     
+    //Cycle Through Registered Users For A Matching Entry
     for (i = 0; i < usersLength; i++) {
         let registeredUserName = usersArray[i].userName;
         let registeredUserPassword = usersArray[i].userPassword;
 
         let registeredObj = { userName : registeredUserName, userPassword : registeredUserPassword };
-        let registeredObjString = JSON.stringify(registeredObj);
+        registeredObjString = JSON.stringify(registeredObj);        
 
         if (signInObjString == registeredObjString) {
-            console.log("Matching User Information Found");
-
-            let successObj = JSON.parse(registeredObjString);
-
-            signInSuccess(successObj);
+            console.log("Matching Entry Found");
+            signInArray.push(true);
         }
         else {
-            alert("Username or Password Incorrect.  Please Try Again.");
+            signInArray.push(false);
+            console.log("Not A Matching Entry");
         }
+    }
+
+    //Check If There Was A Matching Entry
+    if (signInArray.includes(true)) {
+        let successObj = JSON.parse(registeredObjString);
+        signInSuccess(successObj);
+    }
+    else {
+        alert("Username or Password Incorrect.  Please Try Again.");
     }
 }
 
@@ -148,6 +164,8 @@ registerUserLabel.addEventListener('click', (e) => {
     changeDisplay(registerUserSubmitBtnClass, 'block');
     changeDisplay(registerUserLabelClass, 'none');
     changeDisplay(signInLabelClass, 'block');
+
+    formHeader.innerHTML = "Register";
     
     userNameInput.value = '';
     userPasswordInput.value = '';
@@ -164,6 +182,8 @@ function hideRegisterBtn() {
     changeDisplay(registerUserSubmitBtnClass, 'none');
     changeDisplay(registerUserLabelClass, 'block');
     changeDisplay(signInLabelClass, 'none');
+
+    formHeader.innerHTML = "Sign In";
     
     userNameInput.value = '';
     userPasswordInput.value = '';
