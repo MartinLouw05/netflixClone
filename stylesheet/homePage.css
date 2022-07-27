@@ -1,4 +1,9 @@
 
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 body {
     background-color: black;
 }
@@ -25,7 +30,7 @@ body {
     text-align: center;
 }
 
-.carousel-inner img {
+.bannerImg {
     cursor: pointer;
     height: 175px;
     margin: 10px;

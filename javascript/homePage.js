@@ -14,8 +14,6 @@ else {
 //Random Movies Information
 let moviesInfo = JSON.parse(localStorage.getItem("moviesData"));
 let moviesBannersInfo = JSON.parse(localStorage.getItem("movieBannersData"));
-console.log(moviesInfo)
-console.log(moviesBannersInfo)
 
 //On Home Page Load
 let pageStartup = new Vue ({
@@ -40,7 +38,34 @@ let pageStartup = new Vue ({
 let banners = new Vue ({
     el : "",
     data : {
-        banner : ""
+        bannerImage : moviesBannersInfo
+    },
+    methods : {
+        createBanners : function() {
+            let length = this.bannerImage.length;
+            for (i = 0; i < length; i++) {
+                const newLine = document.createElement('div');
+                newLine.id = i;
+                newLine.className = "carousel-item";
+
+                let bannersArray = [];
+                
+                bannersArray.push(this.bannerImage[i].bannerImg);
+
+                for (x = 0; x < bannersArray.length; x++) {
+                    const newImg = document.createElement('img');
+                    newImg.className = "bannerImg";
+                    newImg.src = bannersArray[x];
+
+                    newLine.append(newImg);
+                }
+
+                document.getElementById("movieBanners").append(newLine);
+            }            
+        }
+    },
+    created : function() {
+        this.createBanners();
     }
 })
 
@@ -51,10 +76,40 @@ let movies = new Vue ({
         id : "",
         name : "",
         genre : "",
-        comingSoon : Boolean,
-        availDate : Date,
+        comingSoon : "",
+        availDate : "",
         thumbnail : "",
         preview : ""
+    },
+    methods : {
+        createMovies : function() {
+            for (i = 0; i < moviesInfo.length; i++) {
+                this.id = i;
+                this.name = moviesInfo[i].name;
+                this.genre = moviesInfo[i].genre;
+                this.comingSoon = this.computeComingSoon(i);
+                this.availDate = moviesInfo[i].availDate;
+                this.thumbnail = "<img src=\"" + moviesInfo[i].thumbnail + "\">";
+                this.preview = moviesInfo[i].preview;
+            }
+        },
+        computeComingSoon : function(index) {
+            let today = new Date();
+            let dd = String(today.getDate()).padStart(2, '0');
+            let mm = String(today.getMonth() + 1).padStart(2, '0');
+            let yyyy = today.getFullYear();
+            today = yyyy + '-' + mm + '-' + dd;
+
+            if (today > moviesInfo[index].availDate) {
+                return true;
+            } 
+            else {
+                return false;
+            }
+        }
+    },
+    created : function() {
+        this.createMovies();
     }
 })
 
