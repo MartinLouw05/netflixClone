@@ -12,7 +12,10 @@ else {
 }
 
 //Random Movies Information
-
+let moviesInfo = JSON.parse(localStorage.getItem("moviesData"));
+let moviesBannersInfo = JSON.parse(localStorage.getItem("movieBannersData"));
+console.log(moviesInfo)
+console.log(moviesBannersInfo)
 
 //On Home Page Load
 let pageStartup = new Vue ({
@@ -33,7 +36,15 @@ let pageStartup = new Vue ({
     }
 })
 
-//Create Movie Instance
+//Create Banners
+let banners = new Vue ({
+    el : "",
+    data : {
+        banner : ""
+    }
+})
+
+//Create Movie Instances
 let movies = new Vue ({
     el : "",
     data : {
