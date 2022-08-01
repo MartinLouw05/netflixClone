@@ -9,10 +9,38 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="../stylesheet/watchlistPage.css">
         <meta charset="UTF-8">
-        <script src="../javascript/watchlistPage.js" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-        
+        <script src="../javascript/movies.js" defer></script>
+        <script src="../javascript/watchlistPage.js" defer></script>
     </head>
+    <body>
+        <header id="pageHeader" class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <img v-bind:src="logo" alt="Netflix Logo Not Found" class="netflixLogo">
+                    <button v-on:click="moveToHomePage()" class="navButton">Home</button>
+                    <button class="navButton" disabled>Watchlist</button>
+                </div>
+                <div class="col-lg-2">
+                    &#128526 {{ currentUser }}
+                </div>
+                <div class="col-lg-2">
+                    <button v-on:click="userLogOut()" class="navButton">Log Out</button>
+                </div>
+            </div>
+        </header>
+        <main>
+            <section class="container-fluid movieList">
+                <h3>
+                    WATCHLIST
+                </h3>
+                <section id="moviesGrid" class="container-fluid movieGrid">
+                    
+                </section>
+            </section>
+        </main>
+    </body>
 </html>

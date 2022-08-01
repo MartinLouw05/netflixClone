@@ -1,8 +1,7 @@
 
-//Check Sign Validity
+//Check Sign In Validity
 let signedInUser = localStorage.getItem("currentUser");
 
-console.log(signedInUser)
 if (signedInUser === null) {
     alert("User Not Signed In");
     document.location.href = "../html/logInPage.html"

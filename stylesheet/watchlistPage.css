@@ -1,6 +1,92 @@
 
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 body {
-    background-color: lightblue;
+    background-color: black;
+}
+
+.netflixLogo {
+    width: 20%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-right: 25px;
+}
+
+.navButton {
+    background-color: transparent;
+    color: white;
+    margin-right: 2px;
+    border: none;
+}
+
+.row {
+    color: white;
+}
+
+.movieList {
+    color: white;
+    border: none;
+    width: 99%;
+}
+
+.movieGrid{
+    display: grid;
+    grid-template-areas: 
+        "movieArea movieArea movieArea movieArea movieArea"
+        "movieArea movieArea movieArea movieArea movieArea"
+        "movieArea movieArea movieArea movieArea movieArea"
+        "movieArea movieArea movieArea movieArea movieArea";
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    grid-auto-rows: auto;   
+    grid-template-rows: min-content;
+    margin-bottom: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.movieArea {
+    border: solid;
+    border-color: grey;
+    border-width: 1px;
+    border-radius: 5px;
+    text-align: center;
+    position: relative;
+}
+
+h6 {
+    margin-top: 2px;
+}
+
+.movieImg {
+    min-height: 310px;
+}
+
+.movieThumbnail {
+    height: auto;
+    width: 200px;
+}
+
+.btnRemoveFromWatchlist {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    padding: 5px;
+    width: 80%;
+    background-color: transparent;
+    color: white;
+    border: solid;
+    border-width: 2.5px;
+    border-radius: 10px;
+}
+
+.lblComingSoon {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: large;
+    color: greenyellow;
 }
 
 @media only screen and (max-width: 600px) {
@@ -8,7 +94,7 @@ body {
 }
 
 @media only screen and (min-width: 600px) {
-
+    
 }
 
 @media only screen and (min-width: 768px) {
