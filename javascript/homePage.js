@@ -13,6 +13,7 @@ else {
 //Random Movies Information
 let moviesInfo = JSON.parse(localStorage.getItem("moviesData"));
 let moviesBannersInfo = JSON.parse(localStorage.getItem("movieBannersData"));
+let currentUser = localStorage.getItem("currentUser");
 let moviesInstanceInfo;
 
 //On Home Page Load
@@ -29,7 +30,15 @@ let pageStartup = new Vue ({
             document.location.href = "../html/logInPage.html";
         },
         moveToWatchlist : function() {
-            document.location.href = "../html/watchlistPage.html";
+            let userWatchlist = localStorage.getItem("watchlist" + this.currentUser);
+            userWatchlist = JSON.parse(userWatchlist);
+
+            if (!userWatchlist || userWatchlist.length === 0) {
+                alert("No Movies Have Been Added to Your Watchlist.  Please Add Some Movies and Try Again.")
+            }
+            else {
+                document.location.href = "../html/watchlistPage.html";
+            }            
         }
     }
 })
@@ -194,7 +203,7 @@ let movies = new Vue ({
         createMovies : function() {
             let movieGridData = new Movies();
 
-            for (i = 0; i < moviesInfo.length; i++) {
+            for (i = 0; i < this.moviesData.length; i++) {
                 movieGridData.id = i;
                 movieGridData.name = this.moviesData[i].name;
                 movieGridData.genre = this.moviesData[i].genre;

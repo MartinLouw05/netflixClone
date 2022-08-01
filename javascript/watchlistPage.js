@@ -11,7 +11,8 @@ else {
 }
 
 //Random Movies Information
-let moviesInfo = JSON.parse(localStorage.getItem("watchlistMartin"));
+let currentUser = localStorage.getItem("currentUser");
+let moviesInfo = JSON.parse(localStorage.getItem("watchlist" + currentUser));
 let moviesInstanceInfo;
 
 //On Home Page Load
@@ -143,7 +144,7 @@ let movies = new Vue ({
     el : "#moviesGrid",
     elBtn : "button[class^='movieArea'",
     data : {
-        moviesData : JSON.parse(localStorage.getItem("watchlistMartin")),
+        moviesData : moviesInfo,
         moviesList : [],
         id : "",
         name : "",
@@ -157,7 +158,7 @@ let movies = new Vue ({
         createMovies : function() {
             let movieGridData = new Movies();
 
-            for (i = 0; i < moviesInfo.length; i++) {
+            for (i = 0; i < this.moviesData.length; i++) {
                 movieGridData.id = i;
                 movieGridData.name = this.moviesData[i].name;
                 movieGridData.genre = this.moviesData[i].genre;
@@ -234,7 +235,6 @@ let movies = new Vue ({
             }      
         },
         removeMovieFromWatchlist : function(e) {
-            console.log("attempting to remove movie from watchlist");
             let selectedMovieId = e.path[1].id;
             let currentUser = localStorage.getItem("currentUser");
             let selectedMovie = this.moviesData[selectedMovieId];
@@ -244,6 +244,14 @@ let movies = new Vue ({
             localStorage.setItem("watchlist" + currentUser, JSON.stringify(this.moviesData));
 
             alert(selectedMovie.name + " Has Been Successfully Removed from Your Watchlist");
+
+            this.watchlistMovieCount();
+        },
+        watchlistMovieCount : function() {
+            if (this.moviesData.length === 0) {
+                alert("You Have No More Movies on Your Watchlist.  Returning to Home Page.");
+                document.location.href = "../html/homePage.html";
+            }
         }
     },
     created : function() {
