@@ -271,9 +271,50 @@ let movies = new Vue ({
                 document.getElementById("moviesGrid").append(newGrid);               
             }      
         },
-        addMovieToWatchlist : function(e) {
-            console.log("Attempting to Add Movie to Watchlist");
-            console.log(e.path[1].id);
+        addMovieToWatchlistValidation : function(e) {
+            let selectedMovieId = e.path[1].id;
+            let selectedMovie = this.moviesData[selectedMovieId];
+
+            let currentUser = localStorage.getItem("currentUser");
+            let userWatchlist = "watchlist" + currentUser;
+            
+            let watchlistData = localStorage.getItem(userWatchlist);
+            let watchlistArray = [];
+            watchlistArray.push(selectedMovie);
+            let validationArray = [];
+            
+            if (!watchlistData) {               
+                localStorage.setItem(userWatchlist, JSON.stringify(watchlistArray));
+                alert(selectedMovie.name + " Has Been Successfully Added to Your Watchlist");
+            } 
+            else {
+                watchlistData = JSON.parse(watchlistData);              
+
+                for (i = 0; i < watchlistData.length; i++) {
+                    if (JSON.stringify(watchlistData[i]) === JSON.stringify(selectedMovie)) {
+                        validationArray.push(true);
+                    }
+                    else {
+                        validationArray.push(false);
+                    }
+                }
+
+                this.addMovieToWatchlist(userWatchlist, validationArray, watchlistData, watchlistArray)
+            }              
+        },
+        addMovieToWatchlist : function(user, validation, storedData, selectedData) {
+            
+            if (validation.includes(true)){
+                alert(selectedData[0].name + " is Already on Your Watchlist");
+            }
+            else{
+                selectedData = JSON.stringify(selectedData);
+                let jsonSelectedData = JSON.parse(selectedData);
+    
+                storedData = storedData.concat(jsonSelectedData);
+                localStorage.setItem(user, JSON.stringify(storedData));
+                alert(jsonSelectedData[0].name + " Has Been Successfully Added to Your Watchlist");
+            }
         }
     },
     created : function() {
@@ -283,11 +324,12 @@ let movies = new Vue ({
     mounted() {
         window.addEventListener('click', (e) => {
             if (e.path[0].id === "btnAddToWatchlist") {
-                this.addMovieToWatchlist(e)
+                this.addMovieToWatchlistValidation(e)
             }
         })
     }
 })
+
 /*
 export default {
     data() {

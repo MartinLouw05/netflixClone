@@ -141,9 +141,6 @@ let movieList = [{  name : "Avatar",
                 }
             ]
 
-let moviesData = JSON.stringify(movieList);
-localStorage.setItem("moviesData", moviesData);
-
 let movieBanners = [{ 
                         bannerImg : "https://collider.com/wp-content/uploads/inception_movie_poster_banner_01.jpg"
                     },
@@ -182,5 +179,10 @@ let movieBanners = [{
                     }
                 ]
 
+let moviesData = JSON.stringify(movieList);
 let movieBannersData = JSON.stringify(movieBanners);
-localStorage.setItem("movieBannersData", movieBannersData);
+
+window.onload = function() {
+    localStorage.setItem("moviesData", moviesData);
+    localStorage.setItem("movieBannersData", movieBannersData);
+}
