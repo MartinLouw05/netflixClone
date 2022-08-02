@@ -134,7 +134,7 @@ class Movies {
     createMovie(data) {
         let moviesArray = [];
         moviesArray.push(data);
-
+        console.log(moviesArray)
         return moviesArray;
     }
 }
@@ -143,6 +143,7 @@ class Movies {
 let movies = new Vue ({
     el : "#moviesGrid",
     elBtn : "button[class^='movieArea'",
+    search : document.getElementById("searchInput").value,
     data : {
         moviesData : moviesInfo,
         moviesList : [],
@@ -252,11 +253,45 @@ let movies = new Vue ({
                 alert("You Have No More Movies on Your Watchlist.  Returning to Home Page.");
                 document.location.href = "../html/homePage.html";
             }
+        },
+        searchWatchlist : function() {
+            document.getElementById("searchInput").addEventListener('keyup', (e) => {               
+                this.search = document.getElementById("searchInput").value;
+
+                for (i = 0; i < this.moviesData.length; i++) {
+                    if (document.getElementById(i)) {                                
+                        document.getElementById(i).remove();
+                    }
+                    else {
+                        //The Element Has Already Been Removed
+                    } 
+                }
+
+                this.createMoviesGrid();
+
+                for (i = 0; i < this.moviesData.length; i++) {
+                    let movieNameLowerCase = this.moviesData[i].name.toLowerCase();
+                    let searchLowerCase = this.search.toLowerCase();            
+                    
+                    if (!movieNameLowerCase.includes(searchLowerCase)) {                            
+                        if (document.getElementById(i)) {                                
+                            document.getElementById(i).remove();
+                        }
+                        else {
+                            //The Element Has Already Been Removed
+                        }                            
+                    }
+                    else {
+                        //Possible Match
+                    }
+                }
+            })
         }
     },
     created : function() {
         this.createMovies();
         this.createMoviesGrid();
+        this.searchWatchlist();
     },
     mounted() {
         window.addEventListener('click', (e) => {
