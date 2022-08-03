@@ -245,24 +245,33 @@ let movies = new Vue ({
                 movieImg.push(this.moviesList[i].thumbnail);
                 let comingSoon = [];
                 comingSoon.push(this.moviesList[i].comingSoon);
+                let moviePreview = [];
+                moviePreview.push(this.moviesList[i].preview);
 
                 for (x = 0; x < movieImg.length; x++) {
                     const newName = document.createElement('h6');
+                    newName.className = "movieTitle";
                     newName.innerHTML = movieName[x];
                     const newDiv = document.createElement('div');
                     newDiv.className = "movieImg";
                     const newImg = document.createElement('img');
                     newImg.className = "movieThumbnail";
                     newImg.src = movieImg[x];
+                    /*const newIFrame = document.createElement('iframe');
+                    //newIFrame.src = moviePreview[x];
+                    newIFrame.className = "moviePreview";
+                    newIFrame.style.display = "none";*/
 
                     newGrid.append(newName);
                     newDiv.append(newImg);
+                    //newDiv.append(newIFrame);
                     newGrid.append(newDiv);
 
                     if (comingSoon[x] === true) {
                         const addButton = document.createElement('button');
                         addButton.id = "btnAddToWatchlist";
-                        addButton.className = "btnAddToWatchlist";
+                        addButton.className = "btnAddToWatchlist";  
+                        addButton.style.display = "none";                      
                         addButton.innerHTML = "&#10133 Add to Watchlist";
                                               
                         newGrid.append(addButton);
@@ -270,14 +279,37 @@ let movies = new Vue ({
                     else {
                         const newLabel = document.createElement('label');
                         newLabel.className = "lblComingSoon";
+                        newLabel.style.display = "none";
                         newLabel.innerHTML = "Coming Soon!";
-
+                        
                         newGrid.append(newLabel);
                     }
                 }              
 
                 document.getElementById("moviesGrid").append(newGrid);               
             }      
+        },
+        displayMovieTrailer : function(id, btn) {
+            //console.log(e);
+            let thumbnail = document.getElementById("moviesGrid").getElementsByClassName("movieArea")[id].getElementsByClassName("movieThumbnail");
+            thumbnail[0].style.display = "none";
+            sessionStorage.setItem("thumbnail", id);
+
+            let iFrame = document.getElementById("moviesGrid").getElementsByClassName("movieArea")[id].getElementsByClassName("moviePreview");
+            iFrame[0].style.display = "block";
+
+            let addToWatchlistBtn = btn;
+            addToWatchlistBtn.style.display = "block";
+
+            window.addEventListener('mouseout', (e) => {
+                if (e.path[0].className !== "movieThumbnail") {                   
+                    if (thumbnail) {          
+                        thumbnail[0].style.display = "block";
+                        iFrame[0].style.display = "none";
+                        addToWatchlistBtn.style.display = "none";
+                    }
+                }
+            })
         },
         addMovieToWatchlistValidation : function(e) {
             let selectedMovieId = e.path[1].id;
@@ -331,10 +363,19 @@ let movies = new Vue ({
     },
     mounted() {
         window.addEventListener('click', (e) => {
-            if (e.path[0].id === "btnAddToWatchlist") {
+            if (e.path[0].id === "btnAddToWatchlist") {                
                 this.addMovieToWatchlistValidation(e)
             }
-        })
+        })/*,
+        window.addEventListener('mouseover', (e) => {
+            console.log(e.path)
+            if (e.path[2].className === "movieArea"|| e.path[0].id === "btnAddToWatchlist") {                
+                this.displayMovieTrailer(e.path[2].id, e.path[2].childNodes[2]);
+            }
+            else if (e.path[0].className === "movieTitle") {
+                this.displayMovieTrailer(e.path[1].id, e.path[1].childNodes[2]);
+            }
+        })*/
     }
 })
 

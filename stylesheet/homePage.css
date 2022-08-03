@@ -79,13 +79,22 @@ h6 {
     margin-top: 2px;
 }
 
-.movieImg {
+.movieImg {/*
     min-height: 310px;
+    display: block;
+    margin-left: 14.5%;
+    margin-right: auto;
+    width: 50%;*/
 }
 
 .movieThumbnail {
     height: auto;
     width: 200px;
+}
+
+.moviePreview {
+    width: auto;
+    border: none;
 }
 
 .btnAddToWatchlist {
