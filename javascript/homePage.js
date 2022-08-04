@@ -43,7 +43,7 @@ let pageStartup = new Vue ({
     }
 })
 
-//Create Banners
+//Create Elements that will fill the Carousel with Movie's Thumbnails
 let banners = new Vue ({
     el : "",
     data : {
@@ -184,7 +184,7 @@ class Movies {
     }
 }
 
-//Create Movie Instances
+//Create Movie Grid and its Functionality
 let movies = new Vue ({
     el : "#moviesGrid",
     elBtn : "button[class^='movieArea'",
@@ -200,6 +200,7 @@ let movies = new Vue ({
         preview : ""
     },
     methods : {
+        //Populate the Different Variables with Movies
         createMovies : function() {
             let movieGridData = new Movies();
 
@@ -217,6 +218,7 @@ let movies = new Vue ({
                 this.moviesList.push(movieObj);                
             }
         },
+        //Determine Whether or Not a Movie has been Released
         computeComingSoon : function(index) {
             let today = new Date();
             let dd = String(today.getDate()).padStart(2, '0');
@@ -231,6 +233,7 @@ let movies = new Vue ({
                 return false;
             }
         },
+        //Populate the Grid with Movies
         createMoviesGrid : function() {
             let length = this.moviesList.length;
 
@@ -238,6 +241,7 @@ let movies = new Vue ({
                 const newGrid = document.createElement('div');
                 newGrid.id = i;
                 newGrid.className = "movieArea";
+                newGrid.role = "movieArea";
 
                 let movieName = [];
                 movieName.push(this.moviesList[i].name);
@@ -257,6 +261,38 @@ let movies = new Vue ({
                     const newImg = document.createElement('img');
                     newImg.className = "movieThumbnail";
                     newImg.src = movieImg[x];
+
+                    //Create Tooltip
+                    const newTooltipDiv = document.createElement('div');
+                    newTooltipDiv.className = "tooltip";
+                    newTooltipDiv.id = "tooltip" + i;
+                    const newTooltipTitle = document.createElement('div');
+                    newTooltipTitle.innerHTML = movieName[x];
+                    const newTooltipPreview = document.createElement('iframe');
+                    newTooltipPreview.src = moviePreview[x];
+                    const newTooltipBtn = document.createElement('button');
+                    newTooltipBtn.id = "btnAddToWatchlist";
+                    newTooltipBtn.className = "btnAddToWatchlist";
+                    newTooltipBtn.innerHTML = "&#10133 Add to Watchlist";
+
+                    newTooltipDiv.append(newTooltipTitle);
+                    newTooltipDiv.append(newTooltipPreview);
+                    newTooltipDiv.append(newTooltipBtn);
+
+                    /*
+                    <div id="tooltip" role="tooltip">
+                        <div>Popcorn</div>
+                        <iframe
+                          src="https://www.youtube.com/embed/6pgeAFaLRL8&ab"
+                          title="Tielle - BLESSLESS | Official Music Video"
+                          frameborder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowfullscreen
+                        ></iframe>
+                        <br /><button>Add to Watchlist</button>
+                      </div>
+                    */
+
                     /*const newIFrame = document.createElement('iframe');
                     //newIFrame.src = moviePreview[x];
                     newIFrame.className = "moviePreview";
@@ -265,15 +301,17 @@ let movies = new Vue ({
                     newGrid.append(newName);
                     newDiv.append(newImg);
                     //newDiv.append(newIFrame);
+                    //newGrid.append(newTooltipDiv);
                     newGrid.append(newDiv);
 
                     if (comingSoon[x] === true) {
                         const addButton = document.createElement('button');
                         addButton.id = "btnAddToWatchlist";
                         addButton.className = "btnAddToWatchlist";  
-                        addButton.style.display = "none";                      
+                        //addButton.style.display = "none";                      
                         addButton.innerHTML = "&#10133 Add to Watchlist";
-                                              
+                        
+                        newDiv.append(addButton);
                         newGrid.append(addButton);
                     }
                     else {
@@ -289,8 +327,26 @@ let movies = new Vue ({
                 document.getElementById("moviesGrid").append(newGrid);               
             }      
         },
-        displayMovieTrailer : function(id, btn) {
-            //console.log(e);
+        //Display Movie Trailer
+        //Function Does Not Work and is Not Utilized Anywhere
+        displayMovieTrailer : function(id, btn) {            
+            const movieArea = document.getElementsByClassName("movieArea"); 
+            const tooltip = document.getElementsByClassName("tooltip");           
+            
+            document.getElementById("tooltip1").style.display = "block";
+            Popper.createPopper(movieArea, tooltip, {
+                placement: "bottom",
+                modifiers: [
+                {
+                    name: "offset",
+                    options: {
+                    offset: [0, 5]
+                    }
+                }
+                ]
+            });
+
+            /*
             let thumbnail = document.getElementById("moviesGrid").getElementsByClassName("movieArea")[id].getElementsByClassName("movieThumbnail");
             thumbnail[0].style.display = "none";
             sessionStorage.setItem("thumbnail", id);
@@ -309,8 +365,9 @@ let movies = new Vue ({
                         addToWatchlistBtn.style.display = "none";
                     }
                 }
-            })
+            })*/
         },
+        //Check if a Movie Does Exist on the User's Watchlist
         addMovieToWatchlistValidation : function(e) {
             let selectedMovieId = e.path[1].id;
             let selectedMovie = this.moviesData[selectedMovieId];
@@ -342,8 +399,9 @@ let movies = new Vue ({
                 this.addMovieToWatchlist(userWatchlist, validationArray, watchlistData, watchlistArray)
             }              
         },
-        addMovieToWatchlist : function(user, validation, storedData, selectedData) {
-            
+        //Movie Did Not Exist on the User's Watchlist
+        //Continue to Add the Movie to the User's Watchlist
+        addMovieToWatchlist : function(user, validation, storedData, selectedData) {            
             if (validation.includes(true)){
                 alert(selectedData[0].name + " is Already on Your Watchlist");
             }
@@ -357,48 +415,31 @@ let movies = new Vue ({
             }
         }
     },
+    //Run these Functions on Program Startup
     created : function() {
         this.createMovies();
         this.createMoviesGrid();
     },
+    //Continuously Run these Functions
     mounted() {
+        //Add an Eventlistener for when a User Clicks on the "Add to Wishlist" Button
         window.addEventListener('click', (e) => {
             if (e.path[0].id === "btnAddToWatchlist") {                
                 this.addMovieToWatchlistValidation(e)
             }
-        })/*,
+        }),
+        //Add mouseover(hover) Event to Display "Add to Wishlist" Button
         window.addEventListener('mouseover', (e) => {
-            console.log(e.path)
-            if (e.path[2].className === "movieArea"|| e.path[0].id === "btnAddToWatchlist") {                
-                this.displayMovieTrailer(e.path[2].id, e.path[2].childNodes[2]);
+            if (e.path[2].className === "movieArea" || e.path[0].id === "btnAddToWatchlist") {              
+                if (e.path[2].childNodes[2].className === "btnAddToWatchlist") {
+                    e.path[2].childNodes[2].style.display = "inline-block";
+                }                
             }
-            else if (e.path[0].className === "movieTitle") {
-                this.displayMovieTrailer(e.path[1].id, e.path[1].childNodes[2]);
+            else {
+                document.querySelectorAll(".btnAddToWatchlist").forEach((element) => {
+                    element.style.display = "none";
+                })
             }
-        })*/
+        })
     }
 })
-
-/*
-export default {
-    data() {
-        return {
-            displayMovie : []
-        }
-    },
-    computed : {
-        moviesDisplay : function() {
-            return this.displayMovie;
-        }
-    }
-}
-*/
-/*
-//Prevent User to Return to Home Page Once They Have Signed Out
-function preventBack() {
-    window.history.forward();
-}
-
-setTimeout("preventBack()", 0);
-window.onunload = function () { null };
-*/

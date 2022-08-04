@@ -73,6 +73,7 @@ body {
     border-radius: 5px;
     text-align: center;
     position: relative;
+    height: 340px;
 }
 
 h6 {
@@ -87,6 +88,14 @@ h6 {
     width: 50%;*/
 }
 
+#tooltip , .tooltip {
+    display: none;
+    border: solid;
+    background: white;
+    border-color: white;
+    padding: 5px 10px;
+}
+
 .movieThumbnail {
     height: auto;
     width: 200px;
@@ -97,16 +106,24 @@ h6 {
     border: none;
 }
 
+.btnDiv {
+    display: none;
+}
+
 .btnAddToWatchlist {
-    margin-top: 4px;
-    margin-bottom: 4px;
-    padding: 5px;
-    width: 80%;
-    background-color: transparent;
+    display: none;
+    position: absolute;
+    background-color: rgba(0,0,0,.6);
     color: white;
     border: solid;
     border-width: 2.5px;
     border-radius: 10px;
+    border-color: white;
+    cursor: pointer;    
+    margin-top: -40px; 
+    margin-left: -79px;
+    padding: 5px;
+
 }
 
 .lblComingSoon {
