@@ -241,12 +241,13 @@ let movies = new Vue ({
             let selectedMovie = this.moviesData[selectedMovieId];
 
             document.getElementById(selectedMovieId).remove();            
-            this.moviesData.splice(selectedMovieId, 1);
+            this.moviesList.splice(selectedMovieId, 1);
             localStorage.setItem("watchlist" + currentUser, JSON.stringify(this.moviesData));
 
             alert(selectedMovie.name + " Has Been Successfully Removed from Your Watchlist");
 
             this.watchlistMovieCount();
+            //location.reload();
         },
         watchlistMovieCount : function() {
             if (this.moviesData.length === 0) {
