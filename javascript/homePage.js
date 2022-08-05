@@ -312,8 +312,7 @@ let movies = new Vue ({
 
                     const addButton = document.createElement('button');
                     addButton.id = "btnAddToWatchlist";
-                    addButton.className = "btnAddToWatchlist";  
-                    //addButton.style.display = "none";                      
+                    addButton.className = "btnAddToWatchlist";                        
                     addButton.innerHTML = "&#10133 Add to Watchlist";
                     
                     newDiv.append(addButton);
@@ -448,7 +447,7 @@ let movies = new Vue ({
             if (validation.includes(true)){
                 alert(selectedData[0].name + " is Already on Your Watchlist");
             }
-            else{
+            else {
                 selectedData = JSON.stringify(selectedData);
                 let jsonSelectedData = JSON.parse(selectedData);
     

@@ -82,15 +82,18 @@ h6 {
 }
 
 .btnRemoveFromWatchlist {
-    margin-top: 4px;
-    margin-bottom: 4px;
-    padding: 5px;
-    width: 80%;
-    background-color: transparent;
+    display: none;
+    position: absolute;
+    background-color: rgba(0,0,0,.6);
     color: white;
     border: solid;
     border-width: 2.5px;
     border-radius: 10px;
+    border-color: white;
+    cursor: pointer;    
+    margin-top: -50px; 
+    margin-left: -104px;
+    padding: 5px;
 }
 
 .lblComingSoon {

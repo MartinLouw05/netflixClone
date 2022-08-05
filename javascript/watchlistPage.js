@@ -188,22 +188,29 @@ let movies = new Vue ({
             }
         },
         createMoviesGrid : function() {
-            let length = this.moviesList.length;
-
-            for (i = 0; i < length; i++) {
+            //Create Movies Grid
+            for (i = 0; i < this.moviesList.length; i++) {
                 const newGrid = document.createElement('div');
                 newGrid.id = i;
                 newGrid.className = "movieArea";
+                newGrid.role = "movieArea";
+
+                console.log(this.moviesList[i])
 
                 let movieName = [];
-                movieName.push(this.moviesList[i].name);
                 let movieImg = [];
-                movieImg.push(this.moviesList[i].thumbnail);
                 let comingSoon = [];
-                comingSoon.push(this.moviesList[i].comingSoon);
+                let moviePreview = [];
 
+                movieName.push(this.moviesList[i].name);                    
+                movieImg.push(this.moviesList[i].thumbnail);                    
+                comingSoon.push(this.moviesList[i].comingSoon);                    
+                moviePreview.push(this.moviesList[i].preview);
+             
+                //Create Elements and Populate them with the Movie's Information
                 for (x = 0; x < movieImg.length; x++) {
                     const newName = document.createElement('h6');
+                    newName.className = "movieTitle";
                     newName.innerHTML = movieName[x];
                     const newDiv = document.createElement('div');
                     newDiv.className = "movieImg";
@@ -215,21 +222,13 @@ let movies = new Vue ({
                     newDiv.append(newImg);
                     newGrid.append(newDiv);
 
-                    if (comingSoon[x] === true) {
-                        const addButton = document.createElement('button');
-                        addButton.id = "btnRemoveFromWatchlist";
-                        addButton.className = "btnRemoveFromWatchlist";
-                        addButton.innerHTML = "&#10134 Remove From Watchlist";
-                                              
-                        newGrid.append(addButton);
-                    }
-                    else {
-                        const newLabel = document.createElement('label');
-                        newLabel.className = "lblComingSoon";
-                        newLabel.innerHTML = "Coming Soon!";
-
-                        newGrid.append(newLabel);
-                    }
+                    const addButton = document.createElement('button');
+                    addButton.id = "btnRemoveFromWatchlist";
+                    addButton.className = "btnRemoveFromWatchlist";
+                    addButton.innerHTML = "&#10134 Remove From Watchlist";
+                    
+                    newDiv.append(addButton);
+                    newGrid.append(addButton);
                 }              
 
                 document.getElementById("moviesGrid").append(newGrid);               
@@ -241,6 +240,7 @@ let movies = new Vue ({
             let selectedMovie = this.moviesData[selectedMovieId];
 
             document.getElementById(selectedMovieId).remove();            
+            this.moviesData.splice(selectedMovieId, 1);
             this.moviesList.splice(selectedMovieId, 1);
             localStorage.setItem("watchlist" + currentUser, JSON.stringify(this.moviesData));
 
@@ -298,6 +298,19 @@ let movies = new Vue ({
         window.addEventListener('click', (e) => {
             if (e.path[0].id === "btnRemoveFromWatchlist") {
                 this.removeMovieFromWatchlist(e);
+            }
+        }),
+        //Add mouseover(hover) Event to Display "Add to Wishlist" Button
+        window.addEventListener('mouseover', (e) => {
+            if (e.path[2].className === "movieArea" || e.path[0].id === "btnRemoveFromWatchlist") {           
+                if (e.path[2].childNodes[2].className === "btnRemoveFromWatchlist") {
+                    e.path[2].childNodes[2].style.display = "inline-block";
+                }                
+            }
+            else {
+                document.querySelectorAll(".btnRemoveFromWatchlist").forEach((element) => {
+                    element.style.display = "none";
+                })
             }
         })
     }
