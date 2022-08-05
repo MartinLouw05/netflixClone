@@ -12,7 +12,6 @@ else {
 
 //Random Movies Information
 let moviesInfo = JSON.parse(localStorage.getItem("moviesData"));
-let moviesBannersInfo = JSON.parse(localStorage.getItem("movieBannersData"));
 let currentUser = localStorage.getItem("currentUser");
 let moviesInstanceInfo;
 
@@ -40,42 +39,6 @@ let pageStartup = new Vue ({
                 document.location.href = "../html/watchlistPage.html";
             }            
         }
-    }
-})
-
-//Create Elements that will fill the Carousel with Movie's Thumbnails
-let banners = new Vue ({
-    el : "",
-    data : {
-        bannerImage : moviesBannersInfo
-    },
-    methods : {
-        createBanners : function() {
-            let length = this.bannerImage.length;
-
-            for (i = 0; i < length; i++) {
-                const newLine = document.createElement('div');
-                newLine.id = i;
-                newLine.className = "carousel-item";
-
-                let bannersArray = [];
-                
-                bannersArray.push(this.bannerImage[i].bannerImg);
-
-                for (x = 0; x < bannersArray.length; x++) {
-                    const newImg = document.createElement('img');
-                    newImg.className = "bannerImg";
-                    newImg.src = bannersArray[x];
-
-                    newLine.append(newImg);
-                }
-
-                document.getElementById("movieBanners").append(newLine);
-            }            
-        }
-    },
-    created : function() {
-        this.createBanners();
     }
 })
 
@@ -184,6 +147,44 @@ class Movies {
     }
 }
 
+/*
+//Create Elements that will fill the Carousel with Movie's Thumbnails
+let banners = new Vue ({
+    el : "",
+    data : {
+        bannerImage : moviesBannersInfo
+    },
+    methods : {
+        createBanners : function() {
+            let length = this.bannerImage.length;
+
+            for (i = 0; i < length; i++) {
+                const newLine = document.createElement('div');
+                newLine.id = i;
+                newLine.className = "carousel-item";
+
+                let bannersArray = [];
+                
+                bannersArray.push(this.bannerImage[i].bannerImg);
+
+                for (x = 0; x < bannersArray.length; x++) {
+                    const newImg = document.createElement('img');
+                    newImg.className = "bannerImg";
+                    newImg.src = bannersArray[x];
+
+                    newLine.append(newImg);
+                }
+
+                document.getElementById("movieBanners").append(newLine);
+            }            
+        }
+    },
+    created : function() {
+        this.createBanners();
+    }
+})
+*/
+
 //Create Movie Grid and its Functionality
 let movies = new Vue ({
     el : "#moviesGrid",
@@ -191,6 +192,7 @@ let movies = new Vue ({
     data : {
         moviesData : JSON.parse(localStorage.getItem("moviesData")),
         moviesList : [],
+        moviesBanners : [],
         id : "",
         name : "",
         genre : "",
@@ -234,24 +236,47 @@ let movies = new Vue ({
             }
         },
         //Populate the Grid with Movies
-        createMoviesGrid : function() {
-            let length = this.moviesList.length;
+        createMoviesGrid : function() {   
+            //Add Movies that are Coming Soon's Index to an Array          
+            let removeFromMovieList = [];
 
-            for (i = 0; i < length; i++) {
+            for (y = 0; y < this.moviesList.length; y++) {              
+                if (this.moviesList[y].comingSoon === false) {
+                    removeFromMovieList.push(y);
+                }
+                else {
+                    //Do Nothing
+                }
+            }
+            
+            //Remove Movies that are Coming Soon from the Movies Grid
+            for (z = 0; z < removeFromMovieList.length; z++) {
+                this.moviesList.splice(removeFromMovieList[z] - z, 1);
+                this.moviesBanners.push(this.moviesList[removeFromMovieList[z] - z].thumbnail);                
+            }   
+
+            this.createBanners();
+
+            //Create Movies Grid
+            for (i = 0; i < this.moviesList.length; i++) {
                 const newGrid = document.createElement('div');
                 newGrid.id = i;
                 newGrid.className = "movieArea";
                 newGrid.role = "movieArea";
 
-                let movieName = [];
-                movieName.push(this.moviesList[i].name);
-                let movieImg = [];
-                movieImg.push(this.moviesList[i].thumbnail);
-                let comingSoon = [];
-                comingSoon.push(this.moviesList[i].comingSoon);
-                let moviePreview = [];
-                moviePreview.push(this.moviesList[i].preview);
+                console.log(this.moviesList[i])
 
+                let movieName = [];
+                let movieImg = [];
+                let comingSoon = [];
+                let moviePreview = [];
+
+                movieName.push(this.moviesList[i].name);                    
+                movieImg.push(this.moviesList[i].thumbnail);                    
+                comingSoon.push(this.moviesList[i].comingSoon);                    
+                moviePreview.push(this.moviesList[i].preview);
+             
+                //Create Elements and Populate them with the Movie's Information
                 for (x = 0; x < movieImg.length; x++) {
                     const newName = document.createElement('h6');
                     newName.className = "movieTitle";
@@ -262,7 +287,8 @@ let movies = new Vue ({
                     newImg.className = "movieThumbnail";
                     newImg.src = movieImg[x];
 
-                    //Create Tooltip
+                    //Create Tooltip !! DOES NOT WORK
+                    /*
                     const newTooltipDiv = document.createElement('div');
                     newTooltipDiv.className = "tooltip";
                     newTooltipDiv.id = "tooltip" + i;
@@ -278,7 +304,22 @@ let movies = new Vue ({
                     newTooltipDiv.append(newTooltipTitle);
                     newTooltipDiv.append(newTooltipPreview);
                     newTooltipDiv.append(newTooltipBtn);
+                    */
 
+                    newGrid.append(newName);
+                    newDiv.append(newImg);
+                    newGrid.append(newDiv);
+
+                    const addButton = document.createElement('button');
+                    addButton.id = "btnAddToWatchlist";
+                    addButton.className = "btnAddToWatchlist";  
+                    //addButton.style.display = "none";                      
+                    addButton.innerHTML = "&#10133 Add to Watchlist";
+                    
+                    newDiv.append(addButton);
+                    newGrid.append(addButton);
+
+                    
                     /*
                     <div id="tooltip" role="tooltip">
                         <div>Popcorn</div>
@@ -298,34 +339,36 @@ let movies = new Vue ({
                     newIFrame.className = "moviePreview";
                     newIFrame.style.display = "none";*/
 
-                    newGrid.append(newName);
-                    newDiv.append(newImg);
+                    
                     //newDiv.append(newIFrame);
-                    //newGrid.append(newTooltipDiv);
-                    newGrid.append(newDiv);
-
-                    if (comingSoon[x] === true) {
-                        const addButton = document.createElement('button');
-                        addButton.id = "btnAddToWatchlist";
-                        addButton.className = "btnAddToWatchlist";  
-                        //addButton.style.display = "none";                      
-                        addButton.innerHTML = "&#10133 Add to Watchlist";
-                        
-                        newDiv.append(addButton);
-                        newGrid.append(addButton);
-                    }
-                    else {
-                        const newLabel = document.createElement('label');
-                        newLabel.className = "lblComingSoon";
-                        newLabel.style.display = "none";
-                        newLabel.innerHTML = "Coming Soon!";
-                        
-                        newGrid.append(newLabel);
-                    }
+                    //newGrid.append(newTooltipDiv);                  
                 }              
 
                 document.getElementById("moviesGrid").append(newGrid);               
             }      
+        },
+        //Create Elements that will fill the Carousel with Movie's Thumbnails
+        createBanners : function() {
+            for (i = 0; i < this.moviesBanners.length; i++) {
+                console.log(this.moviesBanners)
+                const newLine = document.createElement('div');
+                newLine.id = i;
+                newLine.className = "carousel-item";
+
+                let bannersArray = [];
+                
+                bannersArray.push(this.moviesBanners[i]);
+
+                for (x = 0; x < bannersArray.length; x++) {
+                    const newImg = document.createElement('img');
+                    newImg.className = "bannerImg";
+                    newImg.src = bannersArray[x];
+
+                    newLine.append(newImg);
+                }
+
+                document.getElementById("movieBanners").append(newLine);
+            }            
         },
         //Display Movie Trailer
         //Function Does Not Work and is Not Utilized Anywhere
