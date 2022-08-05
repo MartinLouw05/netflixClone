@@ -28,6 +28,9 @@ body {
 
 .carousel {
     text-align: center;
+    background-image: url("../images/comingSoon.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .bannerImg {
