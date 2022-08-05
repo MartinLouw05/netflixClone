@@ -247,6 +247,9 @@ let movies = new Vue ({
             alert(selectedMovie.name + " Has Been Successfully Removed from Your Watchlist");
 
             this.watchlistMovieCount();
+            
+            document.getElementById("moviesGrid").innerHTML = "";
+            this.createMoviesGrid();
             //location.reload();
         },
         watchlistMovieCount : function() {
@@ -303,7 +306,7 @@ let movies = new Vue ({
         //Add mouseover(hover) Event to Display "Add to Wishlist" Button
         window.addEventListener('mouseover', (e) => {
             if (e.path[2].className === "movieArea" || e.path[0].id === "btnRemoveFromWatchlist") {           
-                if (e.path[2].childNodes[2].className === "btnRemoveFromWatchlist") {
+                if (e.path[2].childNodes[2]) {
                     e.path[2].childNodes[2].style.display = "inline-block";
                 }                
             }

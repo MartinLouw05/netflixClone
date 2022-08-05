@@ -264,8 +264,6 @@ let movies = new Vue ({
                 newGrid.className = "movieArea";
                 newGrid.role = "movieArea";
 
-                console.log(this.moviesList[i])
-
                 let movieName = [];
                 let movieImg = [];
                 let comingSoon = [];
@@ -349,7 +347,6 @@ let movies = new Vue ({
         //Create Elements that will fill the Carousel with Movie's Thumbnails
         createBanners : function() {
             for (i = 0; i < this.moviesBanners.length; i++) {
-                console.log(this.moviesBanners)
                 const newLine = document.createElement('div');
                 newLine.id = i;
                 newLine.className = "carousel-item";
@@ -472,10 +469,10 @@ let movies = new Vue ({
         }),
         //Add mouseover(hover) Event to Display "Add to Wishlist" Button
         window.addEventListener('mouseover', (e) => {
-            if (e.path[2].className === "movieArea" || e.path[0].id === "btnAddToWatchlist") {              
-                if (e.path[2].childNodes[2].className === "btnAddToWatchlist") {
+            if (e.path[2].className === "movieArea" || e.path[0].id === "btnAddToWatchlist") {                           
+                if (e.path[2].childNodes[2]) {
                     e.path[2].childNodes[2].style.display = "inline-block";
-                }                
+                }           
             }
             else {
                 document.querySelectorAll(".btnAddToWatchlist").forEach((element) => {
