@@ -315,7 +315,6 @@ let movies = new Vue ({
                     
                     newDiv.append(addButton);
                     newGrid.append(addButton);
-
                     
                     /*
                     <div id="tooltip" role="tooltip">
@@ -409,7 +408,7 @@ let movies = new Vue ({
         //Check if a Movie Does Exist on the User's Watchlist
         addMovieToWatchlistValidation : function(e) {
             let selectedMovieId = e.path[1].id;
-            let selectedMovie = this.moviesData[selectedMovieId];
+            let selectedMovie = this.moviesList[selectedMovieId];
 
             let currentUser = localStorage.getItem("currentUser");
             let userWatchlist = "watchlist" + currentUser;
@@ -447,10 +446,25 @@ let movies = new Vue ({
             else {
                 selectedData = JSON.stringify(selectedData);
                 let jsonSelectedData = JSON.parse(selectedData);
-    
+
                 storedData = storedData.concat(jsonSelectedData);
+                storedData.sort(this.sortWatchlist);
+
                 localStorage.setItem(user, JSON.stringify(storedData));
                 alert(jsonSelectedData[0].name + " Has Been Successfully Added to Your Watchlist");
+            }
+        },
+        //Sort Watchlist Movies Alphabetically
+        sortWatchlist : function(a, b) {
+            console.log(a)
+            if (a.name < b.name) {
+                return -1;
+            }
+            else if (a.name > b.name) {
+                return 1;
+            }
+            else {
+                return 0;
             }
         }
     },

@@ -250,6 +250,37 @@ let movies = new Vue ({
             
             document.getElementById("moviesGrid").innerHTML = "";
             this.createMoviesGrid();
+            
+            this.search = document.getElementById("searchInput").value;
+
+                for (i = 0; i < this.moviesData.length; i++) {
+                    if (document.getElementById(i)) {                                
+                        document.getElementById(i).remove();
+                    }
+                    else {
+                        //The Element Has Already Been Removed
+                    } 
+                }
+
+                this.createMoviesGrid();
+
+                for (i = 0; i < this.moviesData.length; i++) {
+                    let movieNameLowerCase = this.moviesData[i].name.toLowerCase();
+                    let searchLowerCase = this.search.toLowerCase();            
+                    
+                    if (!movieNameLowerCase.includes(searchLowerCase)) {                            
+                        if (document.getElementById(i)) {                                
+                            document.getElementById(i).remove();
+                        }
+                        else {
+                            //The Element Has Already Been Removed
+                        }                            
+                    }
+                    else {
+                        //Possible Match
+                    }
+                }
+
             //location.reload();
         },
         watchlistMovieCount : function() {

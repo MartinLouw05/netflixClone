@@ -35,7 +35,7 @@ body {
 
 .bannerImg {
     cursor: pointer;
-    height: 175px;
+    height: 250px;
     margin: 10px;
 }
 
@@ -56,10 +56,10 @@ body {
 .movieGrid{
     display: grid;
     grid-template-areas: 
-        "movieArea movieArea movieArea movieArea movieArea"
-        "movieArea movieArea movieArea movieArea movieArea"
-        "movieArea movieArea movieArea movieArea movieArea"
-        "movieArea movieArea movieArea movieArea movieArea";
+        "movieArea movieArea movieArea movieArea movieArea movieArea"
+        "movieArea movieArea movieArea movieArea movieArea movieArea"
+        "movieArea movieArea movieArea movieArea movieArea movieArea"
+        "movieArea movieArea movieArea movieArea movieArea movieArea";
     grid-template-columns: repeat(5, 1fr);
     gap: 10px;
     grid-auto-rows: auto;   
@@ -70,7 +70,7 @@ body {
 }
 
 .movieArea {
-    border: solid;
+    border: none;
     border-color: grey;
     border-width: 1px;
     border-radius: 5px;
@@ -83,12 +83,8 @@ h6 {
     margin-top: 2px;
 }
 
-.movieImg {/*
-    min-height: 310px;
-    display: block;
-    margin-left: 14.5%;
-    margin-right: auto;
-    width: 50%;*/
+.movieImg {
+    
 }
 
 #tooltip , .tooltip {
@@ -100,7 +96,7 @@ h6 {
 }
 
 .movieThumbnail {
-    height: auto;
+    height: 300px;
     width: 200px;
 }
 

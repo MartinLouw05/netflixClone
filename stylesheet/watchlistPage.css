@@ -60,7 +60,7 @@ body {
 }
 
 .movieArea {
-    border: solid;
+    border: none;
     border-color: grey;
     border-width: 1px;
     border-radius: 5px;
@@ -77,7 +77,7 @@ h6 {
 }
 
 .movieThumbnail {
-    height: auto;
+    height: 300px;
     width: 200px;
 }
 
