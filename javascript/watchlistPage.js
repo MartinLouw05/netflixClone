@@ -7,7 +7,7 @@ if (signedInUser === null) {
     document.location.href = "../html/logInPage.html"
 }
 else {
-    console.log("User " + signedInUser + " Is Signed In");
+    //console.log("User " + signedInUser + " Is Signed In");
 }
 
 //Random Movies Information
@@ -25,7 +25,6 @@ let pageStartup = new Vue ({
     methods : {
         userLogOut : function() {
             localStorage.removeItem("currentUser");
-            console.log("User Logged Out");
             document.location.href = "../html/logInPage.html";
         },
         moveToHomePage : function() {
@@ -51,7 +50,7 @@ class Movies {
     }
     set id(text) {
         if (isNaN(text)) {
-            console.log("You Must Assign a Value To The ID");
+            //console.log("You Must Assign a Value To The ID");
         } 
         else {
             this._id = text;
@@ -66,7 +65,7 @@ class Movies {
             this._name = text;
         } 
         else {
-            console.log("You Must Assign a Value To The Name");
+            //console.log("You Must Assign a Value To The Name");
         }
     }
 
@@ -78,7 +77,7 @@ class Movies {
             this._genre = text;
         } 
         else {
-            console.log("You Must Assign a Value To The Genre");
+            //console.log("You Must Assign a Value To The Genre");
         }
     }
 
@@ -90,7 +89,7 @@ class Movies {
             this._comingSoon = text;
         } 
         else {
-            console.log("You Must Assign a Value To Coming Soon");
+            //console.log("You Must Assign a Value To Coming Soon");
         }
     }
 
@@ -102,7 +101,7 @@ class Movies {
             this._availDate = text;
         } 
         else {
-            console.log("You Must Assign a Value To The Available Date");
+            //console.log("You Must Assign a Value To The Available Date");
         }
     }
 
@@ -114,7 +113,7 @@ class Movies {
             this._thumbnail = text;
         } 
         else {
-            console.log("You Must Assign a Value To The Thumbnail");
+            //console.log("You Must Assign a Value To The Thumbnail");
         }
     }
 
@@ -126,7 +125,7 @@ class Movies {
             this._preview = text;
         } 
         else {
-            console.log("You Must Assign a Value To The Preview");
+            //console.log("You Must Assign a Value To The Preview");
         }
     }
 
@@ -134,7 +133,6 @@ class Movies {
     createMovie(data) {
         let moviesArray = [];
         moviesArray.push(data);
-        console.log(moviesArray)
         return moviesArray;
     }
 }
@@ -156,6 +154,7 @@ let movies = new Vue ({
         preview : ""
     },
     methods : {
+        //Manipulate Received Movies Information
         createMovies : function() {
             let movieGridData = new Movies();
 
@@ -173,6 +172,7 @@ let movies = new Vue ({
                 this.moviesList.push(movieObj);                
             }
         },
+        //Determine a Movie's Availability Status
         computeComingSoon : function(index) {
             let today = new Date();
             let dd = String(today.getDate()).padStart(2, '0');
@@ -194,8 +194,6 @@ let movies = new Vue ({
                 newGrid.id = i;
                 newGrid.className = "movieArea";
                 newGrid.role = "movieArea";
-
-                console.log(this.moviesList[i])
 
                 let movieName = [];
                 let movieImg = [];
@@ -234,6 +232,7 @@ let movies = new Vue ({
                 document.getElementById("moviesGrid").append(newGrid);               
             }      
         },
+        //Remove Movie from User's Watchlist
         removeMovieFromWatchlist : function(e) {
             let selectedMovieId = e.path[1].id;
             let currentUser = localStorage.getItem("currentUser");
@@ -246,13 +245,16 @@ let movies = new Vue ({
 
             alert(selectedMovie.name + " Has Been Successfully Removed from Your Watchlist");
 
+            //Check if the User Still has Movie on Their Watchlist
             this.watchlistMovieCount();
             
+            //Recreate Movies Grid and Perform Search
             document.getElementById("moviesGrid").innerHTML = "";
             this.createMoviesGrid();
             
             this.search = document.getElementById("searchInput").value;
-
+                
+                //Check if Movie Entry has Already been Removed
                 for (i = 0; i < this.moviesData.length; i++) {
                     if (document.getElementById(i)) {                                
                         document.getElementById(i).remove();
@@ -264,6 +266,7 @@ let movies = new Vue ({
 
                 this.createMoviesGrid();
 
+                //Perform Search
                 for (i = 0; i < this.moviesData.length; i++) {
                     let movieNameLowerCase = this.moviesData[i].name.toLowerCase();
                     let searchLowerCase = this.search.toLowerCase();            
@@ -280,19 +283,20 @@ let movies = new Vue ({
                         //Possible Match
                     }
                 }
-
-            //location.reload();
         },
+        //Check if the User has Movies on Their Watchlist
         watchlistMovieCount : function() {
             if (this.moviesData.length === 0) {
                 alert("You Have No More Movies on Your Watchlist.  Returning to Home Page.");
                 document.location.href = "../html/homePage.html";
             }
         },
+        //User Search
         searchWatchlist : function() {
             document.getElementById("searchInput").addEventListener('keyup', (e) => {               
                 this.search = document.getElementById("searchInput").value;
 
+                //Check if Movie Entry has Already been Removed
                 for (i = 0; i < this.moviesData.length; i++) {
                     if (document.getElementById(i)) {                                
                         document.getElementById(i).remove();
@@ -304,6 +308,7 @@ let movies = new Vue ({
 
                 this.createMoviesGrid();
 
+                //Perform Search
                 for (i = 0; i < this.moviesData.length; i++) {
                     let movieNameLowerCase = this.moviesData[i].name.toLowerCase();
                     let searchLowerCase = this.search.toLowerCase();            
@@ -323,12 +328,15 @@ let movies = new Vue ({
             })
         }
     },
+    //Run these Functions on Page Start
     created : function() {
         this.createMovies();
         this.createMoviesGrid();
         this.searchWatchlist();
     },
+    //Continuously Run these Functions
     mounted() {
+        //Event Listener for Removing a Movie from the Watchlist
         window.addEventListener('click', (e) => {
             if (e.path[0].id === "btnRemoveFromWatchlist") {
                 this.removeMovieFromWatchlist(e);

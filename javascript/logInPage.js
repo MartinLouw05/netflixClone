@@ -145,7 +145,7 @@ registerUserSubmitBtn.addEventListener('click', (e) => {
             registerUser(users, myJson);    
         }
         else {
-            console.log("Something Went Wrong While Attempting To Retrieve Registered Users");
+            //Something Went Wrong While Attempting To Retrieve Registered Users
         }
     }
     else {        

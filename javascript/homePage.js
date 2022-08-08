@@ -7,7 +7,7 @@ if (signedInUser === null) {
     document.location.href = "../html/logInPage.html"
 }
 else {
-    console.log("User " + signedInUser + " Is Signed In");
+    //console.log("User " + signedInUser + " Is Signed In");
 }
 
 //Random Movies Information
@@ -25,7 +25,6 @@ let pageStartup = new Vue ({
     methods : {
         userLogOut : function() {
             localStorage.removeItem("currentUser");
-            console.log("User Logged Out");
             document.location.href = "../html/logInPage.html";
         },
         moveToWatchlist : function() {
@@ -59,7 +58,7 @@ class Movies {
     }
     set id(text) {
         if (isNaN(text)) {
-            console.log("You Must Assign a Value To The ID");
+            //console.log("You Must Assign a Value To The ID");
         } 
         else {
             this._id = text;
@@ -74,7 +73,7 @@ class Movies {
             this._name = text;
         } 
         else {
-            console.log("You Must Assign a Value To The Name");
+            //console.log("You Must Assign a Value To The Name");
         }
     }
 
@@ -86,7 +85,7 @@ class Movies {
             this._genre = text;
         } 
         else {
-            console.log("You Must Assign a Value To The Genre");
+            //console.log("You Must Assign a Value To The Genre");
         }
     }
 
@@ -98,7 +97,7 @@ class Movies {
             this._comingSoon = text;
         } 
         else {
-            console.log("You Must Assign a Value To Coming Soon");
+            //console.log("You Must Assign a Value To Coming Soon");
         }
     }
 
@@ -110,7 +109,7 @@ class Movies {
             this._availDate = text;
         } 
         else {
-            console.log("You Must Assign a Value To The Available Date");
+            //console.log("You Must Assign a Value To The Available Date");
         }
     }
 
@@ -122,7 +121,7 @@ class Movies {
             this._thumbnail = text;
         } 
         else {
-            console.log("You Must Assign a Value To The Thumbnail");
+            //console.log("You Must Assign a Value To The Thumbnail");
         }
     }
 
@@ -134,7 +133,7 @@ class Movies {
             this._preview = text;
         } 
         else {
-            console.log("You Must Assign a Value To The Preview");
+            //console.log("You Must Assign a Value To The Preview");
         }
     }
 
@@ -355,7 +354,6 @@ let movies = new Vue ({
         },
         //Sort Watchlist Movies Alphabetically
         sortWatchlist : function(a, b) {
-            console.log(a)
             if (a.name < b.name) {
                 return -1;
             }
@@ -397,7 +395,7 @@ let movies = new Vue ({
         let lblUsername = document.getElementById("divUsername");
         let btnLogOut = document.getElementById("divLogOut");
         let pageLogo = document.getElementById("pageLogo");
-        
+
         let firstMediaQuery = window.matchMedia('(max-width: 992px)');
 
         function firstScreenTest(e) {
