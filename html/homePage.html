@@ -19,15 +19,15 @@
     <body>
         <header id="pageHeader" class="container-fluid">
             <div class="row align-items-center">
-                <div class="col-lg-8">
+                <div id="pageLogo" class="col-lg-8">
                     <img v-bind:src="logo" alt="Netflix Logo Not Found" class="netflixLogo">
                     <button class="navButton" disabled>Home</button>
                     <button v-on:click="moveToWatchlist()" class="navButton">Watchlist</button>
                 </div>
-                <div class="col-lg-2">
+                <div id="divUsername" class="col-lg-2">
                     &#128526 {{ currentUser }}
                 </div>
-                <div class="col-lg-2">
+                <div id="divLogOut" class="col-lg-2">
                     <button v-on:click="userLogOut()" class="navButton">Log Out</button>
                 </div>
             </div>
@@ -39,14 +39,6 @@
                         <img src="https://casperanimations.files.wordpress.com/2021/05/netflix-4.jpg" class="bannerImg">
                     </div>
                 </div>
-                <a class="carousel-control-prev" href="#carouselControls" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                  <a class="carousel-control-next" href="#carouselControls" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                  </a>
             </div>
 
             <section class="container-fluid movieList">

@@ -147,44 +147,6 @@ class Movies {
     }
 }
 
-/*
-//Create Elements that will fill the Carousel with Movie's Thumbnails
-let banners = new Vue ({
-    el : "",
-    data : {
-        bannerImage : moviesBannersInfo
-    },
-    methods : {
-        createBanners : function() {
-            let length = this.bannerImage.length;
-
-            for (i = 0; i < length; i++) {
-                const newLine = document.createElement('div');
-                newLine.id = i;
-                newLine.className = "carousel-item";
-
-                let bannersArray = [];
-                
-                bannersArray.push(this.bannerImage[i].bannerImg);
-
-                for (x = 0; x < bannersArray.length; x++) {
-                    const newImg = document.createElement('img');
-                    newImg.className = "bannerImg";
-                    newImg.src = bannersArray[x];
-
-                    newLine.append(newImg);
-                }
-
-                document.getElementById("movieBanners").append(newLine);
-            }            
-        }
-    },
-    created : function() {
-        this.createBanners();
-    }
-})
-*/
-
 //Create Movie Grid and its Functionality
 let movies = new Vue ({
     el : "#moviesGrid",
@@ -285,25 +247,6 @@ let movies = new Vue ({
                     newImg.className = "movieThumbnail";
                     newImg.src = movieImg[x];
 
-                    //Create Tooltip !! DOES NOT WORK
-                    /*
-                    const newTooltipDiv = document.createElement('div');
-                    newTooltipDiv.className = "tooltip";
-                    newTooltipDiv.id = "tooltip" + i;
-                    const newTooltipTitle = document.createElement('div');
-                    newTooltipTitle.innerHTML = movieName[x];
-                    const newTooltipPreview = document.createElement('iframe');
-                    newTooltipPreview.src = moviePreview[x];
-                    const newTooltipBtn = document.createElement('button');
-                    newTooltipBtn.id = "btnAddToWatchlist";
-                    newTooltipBtn.className = "btnAddToWatchlist";
-                    newTooltipBtn.innerHTML = "&#10133 Add to Watchlist";
-
-                    newTooltipDiv.append(newTooltipTitle);
-                    newTooltipDiv.append(newTooltipPreview);
-                    newTooltipDiv.append(newTooltipBtn);
-                    */
-
                     newGrid.append(newName);
                     newDiv.append(newImg);
                     newGrid.append(newDiv);
@@ -314,30 +257,7 @@ let movies = new Vue ({
                     addButton.innerHTML = "&#10133 Add to Watchlist";
                     
                     newDiv.append(addButton);
-                    newGrid.append(addButton);
-                    
-                    /*
-                    <div id="tooltip" role="tooltip">
-                        <div>Popcorn</div>
-                        <iframe
-                          src="https://www.youtube.com/embed/6pgeAFaLRL8&ab"
-                          title="Tielle - BLESSLESS | Official Music Video"
-                          frameborder="0"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowfullscreen
-                        ></iframe>
-                        <br /><button>Add to Watchlist</button>
-                      </div>
-                    */
-
-                    /*const newIFrame = document.createElement('iframe');
-                    //newIFrame.src = moviePreview[x];
-                    newIFrame.className = "moviePreview";
-                    newIFrame.style.display = "none";*/
-
-                    
-                    //newDiv.append(newIFrame);
-                    //newGrid.append(newTooltipDiv);                  
+                    newGrid.append(addButton);           
                 }              
 
                 document.getElementById("moviesGrid").append(newGrid);               
@@ -383,27 +303,6 @@ let movies = new Vue ({
                 }
                 ]
             });
-
-            /*
-            let thumbnail = document.getElementById("moviesGrid").getElementsByClassName("movieArea")[id].getElementsByClassName("movieThumbnail");
-            thumbnail[0].style.display = "none";
-            sessionStorage.setItem("thumbnail", id);
-
-            let iFrame = document.getElementById("moviesGrid").getElementsByClassName("movieArea")[id].getElementsByClassName("moviePreview");
-            iFrame[0].style.display = "block";
-
-            let addToWatchlistBtn = btn;
-            addToWatchlistBtn.style.display = "block";
-
-            window.addEventListener('mouseout', (e) => {
-                if (e.path[0].className !== "movieThumbnail") {                   
-                    if (thumbnail) {          
-                        thumbnail[0].style.display = "block";
-                        iFrame[0].style.display = "none";
-                        addToWatchlistBtn.style.display = "none";
-                    }
-                }
-            })*/
         },
         //Check if a Movie Does Exist on the User's Watchlist
         addMovieToWatchlistValidation : function(e) {
@@ -480,7 +379,7 @@ let movies = new Vue ({
             if (e.path[0].id === "btnAddToWatchlist") {                
                 this.addMovieToWatchlistValidation(e)
             }
-        }),
+        });
         //Add mouseover(hover) Event to Display "Add to Wishlist" Button
         window.addEventListener('mouseover', (e) => {
             if (e.path[2].className === "movieArea" || e.path[0].id === "btnAddToWatchlist") {                           
@@ -493,6 +392,61 @@ let movies = new Vue ({
                     element.style.display = "none";
                 })
             }
-        })
+        });
+        //Change Top Navigation Display Information
+        let lblUsername = document.getElementById("divUsername");
+        let btnLogOut = document.getElementById("divLogOut");
+        let pageLogo = document.getElementById("pageLogo");
+        
+        let firstMediaQuery = window.matchMedia('(max-width: 992px)');
+
+        function firstScreenTest(e) {
+            if (e.matches) {
+                pageLogo.className = "col-md-8";
+                lblUsername.className = "col-md-2";
+                btnLogOut.className = "col-md-2";
+            }
+            else {
+                pageLogo.className = "col-lg-8";
+                lblUsername.className = "col-lg-2";
+                btnLogOut.className = "col-lg-2";
+            }
+        }
+
+        firstMediaQuery.addEventListener('change', firstScreenTest);
+
+        let secondMediaQuery = window.matchMedia('(max-width: 768px)');
+
+        function secondScreenTest(e) {
+            if (e.matches) {
+                pageLogo.className = "col-sm-8";
+                lblUsername.className = "col-sm-2";
+                btnLogOut.className = "col-sm-2";
+            }
+            else {
+                pageLogo.className = "col-md-8";
+                lblUsername.className = "col-md-2";
+                btnLogOut.className = "col-md-2";
+            }
+        }
+
+        secondMediaQuery.addEventListener('change', secondScreenTest);
+
+        let thirdMediaQuery = window.matchMedia('(max-width: 640px)');
+
+        function thirdScreenTest(e) {
+            if (e.matches) {
+                pageLogo.className = "col-sm-6";
+                lblUsername.className = "col-sm-3";
+                btnLogOut.className = "col-sm-3";
+            }
+            else {
+                pageLogo.className = "col-sm-8";
+                lblUsername.className = "col-sm-2";
+                btnLogOut.className = "col-sm-2";
+            }
+        }
+
+        thirdMediaQuery.addEventListener('change', thirdScreenTest);
     }
 })

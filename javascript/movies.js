@@ -76,7 +76,7 @@ let movieList = [{  name : "Avatar",
                     thumbnail : "http://cdn.shopify.com/s/files/1/1057/4964/products/titanic-vintage-movie-poster-original-1-sheet-27x41_grande.jpg?v=1622869492",
                     preview : "https://www.youtube.com/embed/kVrqfYjkTdQ"
                 },
-                {   name : "Star Wars: Episode IV - A New Hope",
+                {   name : "A New Hope",
                     genre : "Science Fiction",
                     comingSoon : Boolean,
                     availDate : "1977-05-25",

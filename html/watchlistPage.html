@@ -19,15 +19,15 @@
     <body>
         <header id="pageHeader" class="container-fluid">
             <div class="row align-items-center">
-                <div class="col-lg-8">
+                <div id="pageLogo" class="col-lg-8">
                     <img v-bind:src="logo" alt="Netflix Logo Not Found" class="netflixLogo">
                     <button v-on:click="moveToHomePage()" class="navButton">Home</button>
                     <button class="navButton" disabled>Watchlist</button>
                 </div>
-                <div class="col-lg-2">
+                <div id="divUsername" class="col-lg-2">
                     &#128526 {{ currentUser }}
                 </div>
-                <div class="col-lg-2">
+                <div id="divLogOut" class="col-lg-2">
                     <button v-on:click="userLogOut()" class="navButton">Log Out</button>
                 </div>
             </div>
@@ -35,10 +35,10 @@
         <main>
             <section class="container-fluid movieList">
                 <div class="row">
-                    <h3 class="col-lg-6">
+                    <h3 id="headerWatchlist" class="col-lg-6">
                         WATCHLIST
                     </h3>
-                    <div class="col-lg-6 searchControls">
+                    <div id="searchArea" class="col-lg-6 searchControls">
                         <input type="text" id="searchInput" placeholder="&#128269 Search Watchlist" class="form-control">
                     </div>
                 </div>

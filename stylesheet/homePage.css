@@ -26,47 +26,14 @@ body {
     color: white;
 }
 
-.carousel {
-    text-align: center;
-    background-image: url("../images/comingSoon.jpg");
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-.bannerImg {
-    cursor: pointer;
-    height: 250px;
-    margin: 10px;
-}
-
-.carousel-control-next {
-    margin-right: -75px;
-}
-
-.carousel-control-prev {
-    margin-left: -75px;
+h3 {
+    padding-top: 10px;
 }
 
 .movieList {
     color: white;
     border: none;
     width: 99%;
-}
-
-.movieGrid{
-    display: grid;
-    grid-template-areas: 
-        "movieArea movieArea movieArea movieArea movieArea movieArea"
-        "movieArea movieArea movieArea movieArea movieArea movieArea"
-        "movieArea movieArea movieArea movieArea movieArea movieArea"
-        "movieArea movieArea movieArea movieArea movieArea movieArea";
-    grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
-    grid-auto-rows: auto;   
-    grid-template-rows: min-content;
-    margin-bottom: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
 }
 
 .movieArea {
@@ -81,10 +48,6 @@ body {
 
 h6 {
     margin-top: 2px;
-}
-
-.movieImg {
-    
 }
 
 #tooltip , .tooltip {
@@ -132,21 +95,180 @@ h6 {
 }
 
 @media only screen and (max-width: 600px) {
+    .carousel {
+        text-align: center;
+        background-image: url("../images/comingSoon.jpg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+    }
+
+    .bannerImg {
+        cursor: pointer;
+        height: 110px;
+        margin: 10px;
+    }
+
+    .movieGrid {
+        display: grid;
+        grid-template-areas: 
+            "movieArea movieArea"
+            "movieArea movieArea"
+            "movieArea movieArea"
+            "movieArea movieArea";
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        grid-auto-rows: auto;   
+        grid-template-rows: min-content;
+        margin-bottom: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
 
 }
 
 @media only screen and (min-width: 600px) {
-    
+    .carousel {
+        text-align: center;
+        background-image: url("../images/comingSoon.jpg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+    }
+
+    .bannerImg {
+        cursor: pointer;
+        height: 130px;
+        margin: 10px;
+    }
+
+    .movieGrid {
+        display: grid;
+        grid-template-areas: 
+            "movieArea movieArea"
+            "movieArea movieArea"
+            "movieArea movieArea"
+            "movieArea movieArea";
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        grid-auto-rows: auto;   
+        grid-template-rows: min-content;
+        margin-bottom: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
 }
 
 @media only screen and (min-width: 768px) {
+    .carousel {
+        text-align: center;
+        background-image: url("../images/comingSoon.jpg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+    }
 
+    .bannerImg {
+        cursor: pointer;
+        height: 150px;
+        margin: 10px;
+    }
+
+    .movieGrid {
+        display: grid;
+        grid-template-areas: 
+            "movieArea movieArea movieArea"
+            "movieArea movieArea movieArea"
+            "movieArea movieArea movieArea"
+            "movieArea movieArea movieArea";
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        grid-auto-rows: auto;   
+        grid-template-rows: min-content;
+        margin-bottom: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
 }
 
 @media only screen and (min-width: 992px) {
+    .carousel {
+        text-align: center;
+        background-image: url("../images/comingSoon.jpg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+    }
 
+    .bannerImg {
+        cursor: pointer;
+        height: 200px;
+        margin: 10px;
+    }
+
+    .movieGrid {
+        display: grid;
+        grid-template-areas: 
+            "movieArea movieArea movieArea movieArea"
+            "movieArea movieArea movieArea movieArea"
+            "movieArea movieArea movieArea movieArea"
+            "movieArea movieArea movieArea movieArea";
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        grid-auto-rows: auto;   
+        grid-template-rows: min-content;
+        margin-bottom: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
 }
 
-@media only screen and (min-width: 1200px){
+@media only screen and (min-width: 1200px) {
+    .carousel {
+        text-align: center;
+        background-image: url("../images/comingSoon.jpg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+    }
 
+    .bannerImg {
+        cursor: pointer;
+        height: 250px;
+        margin: 10px;
+    }
+
+    .movieGrid {
+        display: grid;
+        grid-template-areas: 
+            "movieArea movieArea movieArea movieArea movieArea"
+            "movieArea movieArea movieArea movieArea movieArea"
+            "movieArea movieArea movieArea movieArea movieArea"
+            "movieArea movieArea movieArea movieArea movieArea";
+        grid-template-columns: repeat(5, 1fr);
+        gap: 10px;
+        grid-auto-rows: auto;   
+        grid-template-rows: min-content;
+        margin-bottom: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+}
+
+@media only screen and (min-width: 1310px) {
+    .movieGrid {
+        display: grid;
+        grid-template-areas: 
+            "movieArea movieArea movieArea movieArea movieArea movieArea"
+            "movieArea movieArea movieArea movieArea movieArea movieArea"
+            "movieArea movieArea movieArea movieArea movieArea movieArea"
+            "movieArea movieArea movieArea movieArea movieArea movieArea";
+        grid-template-columns: repeat(6, 1fr);
+        gap: 10px;
+        grid-auto-rows: auto;   
+        grid-template-rows: min-content;
+        margin-bottom: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
 }

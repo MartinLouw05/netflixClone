@@ -333,7 +333,7 @@ let movies = new Vue ({
             if (e.path[0].id === "btnRemoveFromWatchlist") {
                 this.removeMovieFromWatchlist(e);
             }
-        }),
+        });
         //Add mouseover(hover) Event to Display "Add to Wishlist" Button
         window.addEventListener('mouseover', (e) => {
             if (e.path[2].className === "movieArea" || e.path[0].id === "btnRemoveFromWatchlist") {           
@@ -346,6 +346,71 @@ let movies = new Vue ({
                     element.style.display = "none";
                 })
             }
-        })
+        });
+        //Change Top Navigation Display Information
+        let lblUsername = document.getElementById("divUsername");
+        let btnLogOut = document.getElementById("divLogOut");
+        let pageLogo = document.getElementById("pageLogo");
+        let headerWatchlist = document.getElementById("headerWatchlist");
+        let searchArea = document.getElementById("searchArea");
+
+        let firstMediaQuery = window.matchMedia('(max-width: 992px)');
+
+        function firstScreenTest(e) {
+            if (e.matches) {
+                pageLogo.className = "col-md-8";
+                lblUsername.className = "col-md-2";
+                btnLogOut.className = "col-md-2";
+                headerWatchlist.className = "col-md-6";
+                searchArea.className = "col-md-6";
+            }
+            else {
+                pageLogo.className = "col-lg-8";
+                lblUsername.className = "col-lg-2";
+                btnLogOut.className = "col-lg-2";
+                headerWatchlist.className = "col-lg-6";
+                searchArea.className = "col-lg-6";
+            }
+        }
+
+        firstMediaQuery.addEventListener('change', firstScreenTest);
+
+        let secondMediaQuery = window.matchMedia('(max-width: 768px)');
+
+        function secondScreenTest(e) {
+            if (e.matches) {
+                pageLogo.className = "col-sm-8";
+                lblUsername.className = "col-sm-2";
+                btnLogOut.className = "col-sm-2";
+                headerWatchlist.className = "col-sm-6";
+                searchArea.className = "col-sm-6";
+            }
+            else {
+                pageLogo.className = "col-md-8";
+                lblUsername.className = "col-md-2";
+                btnLogOut.className = "col-md-2";
+                headerWatchlist.className = "col-md-6";
+                searchArea.className = "col-md-6";
+            }
+        }
+
+        secondMediaQuery.addEventListener('change', secondScreenTest);
+
+        let thirdMediaQuery = window.matchMedia('(max-width: 640px)');
+
+        function thirdScreenTest(e) {
+            if (e.matches) {
+                pageLogo.className = "col-sm-6";
+                lblUsername.className = "col-sm-3";
+                btnLogOut.className = "col-sm-3";
+            }
+            else {
+                pageLogo.className = "col-sm-8";
+                lblUsername.className = "col-sm-2";
+                btnLogOut.className = "col-sm-2";
+            }
+        }
+
+        thirdMediaQuery.addEventListener('change', thirdScreenTest);
     }
 })
