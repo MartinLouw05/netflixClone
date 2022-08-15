@@ -94,6 +94,11 @@ h6 {
     color: greenyellow;
 }
 
+footer {
+    color: grey;
+    text-align: center;
+}
+
 @media only screen and (max-width: 600px) {
     .carousel {
         text-align: center;
@@ -101,12 +106,20 @@ h6 {
         background-repeat: no-repeat;
         background-position: center;
         background-size: contain;
+        height: 130px;
     }
 
     .bannerImg {
         cursor: pointer;
         height: 110px;
         margin: 10px;
+    }
+
+    .watermark {
+        color: greenyellow;
+        margin-top: -27.5px;
+        font-size: x-small;
+        font-weight: bold;
     }
 
     .movieGrid {
@@ -134,12 +147,20 @@ h6 {
         background-repeat: no-repeat;
         background-position: center;
         background-size: contain;
+        height: 150px;
     }
 
     .bannerImg {
         cursor: pointer;
         height: 130px;
         margin: 10px;
+    }
+
+    .watermark {
+        color: greenyellow;
+        margin-top: -27.5px;
+        font-size: smaller;
+        font-weight: bold;
     }
 
     .movieGrid {
@@ -166,12 +187,20 @@ h6 {
         background-repeat: no-repeat;
         background-position: center;
         background-size: contain;
+        height: 165px;
     }
 
     .bannerImg {
         cursor: pointer;
         height: 150px;
         margin: 10px;
+    }
+
+    .watermark {
+        color: greenyellow;
+        margin-top: -30px;
+        font-size: small;
+        font-weight: bold;
     }
 
     .movieGrid {
@@ -198,12 +227,20 @@ h6 {
         background-repeat: no-repeat;
         background-position: center;
         background-size: contain;
+        height: 220px;
     }
 
     .bannerImg {
         cursor: pointer;
         height: 200px;
         margin: 10px;
+    }
+
+    .watermark {
+        color: greenyellow;
+        margin-top: -35px;
+        font-size: large;
+        font-weight: bold;
     }
 
     .movieGrid {
@@ -230,12 +267,20 @@ h6 {
         background-repeat: no-repeat;
         background-position: center;
         background-size: contain;
+        height: 275px;
     }
 
     .bannerImg {
         cursor: pointer;
         height: 250px;
         margin: 10px;
+    }
+    
+    .watermark {
+        color: greenyellow;
+        margin-top: -35px;
+        font-size: larger;
+        font-weight: bold;
     }
 
     .movieGrid {

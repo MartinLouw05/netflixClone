@@ -278,7 +278,12 @@ let movies = new Vue ({
                     newImg.className = "bannerImg";
                     newImg.src = bannersArray[x];
 
+                    const watermark = document.createElement('div');
+                    watermark.className = "watermark";
+                    watermark.innerHTML = "COMING SOON";
+
                     newLine.append(newImg);
+                    newLine.append(watermark);
                 }
 
                 document.getElementById("movieBanners").append(newLine);

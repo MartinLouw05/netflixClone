@@ -103,6 +103,10 @@ h6 {
     color: greenyellow;
 }
 
+footer {
+    color: grey;
+    text-align: center;
+}
 
 @media only screen and (max-width: 600px) {
     .movieGrid {
