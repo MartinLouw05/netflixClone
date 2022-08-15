@@ -212,8 +212,8 @@ let movies = new Vue ({
             
             //Remove Movies that are Coming Soon from the Movies Grid
             for (z = 0; z < removeFromMovieList.length; z++) {
-                this.moviesList.splice(removeFromMovieList[z] - z, 1);
-                this.moviesBanners.push(this.moviesList[removeFromMovieList[z] - z].thumbnail);                
+                this.moviesBanners.push(this.moviesList[removeFromMovieList[z] - z].thumbnail);
+                this.moviesList.splice(removeFromMovieList[z] - z, 1);                                
             }   
 
             this.createBanners();
